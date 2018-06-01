@@ -1,3 +1,16 @@
+var burstConfig = {
+  clones: 2,            // number of clones  
+  randomize: true,      // if true, the number of clones will be +- 50% for each burst  
+  spread: .8,           // spread of clones
+  rotate: 480,          // rotation of clones starting from 0
+  angle: 0,             // direction of burst in degrees, 0 only support at the moment
+  opacity: .8,          // starting opacity of clone
+  rate: .8,              // time between clones
+  scale: .6,            // final clone size starting from 1
+  scaleSpread: .6,      // level of variety in clone sizes
+  velocity: .8,         // speed of clones
+}
+
 var triggers = document.getElementsByClassName('burst');
 for(var i = 0; i < triggers.length; i++) {
   var element = triggers[i];   

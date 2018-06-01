@@ -1,4 +1,4 @@
-var config = {
+var burstConfig = {
   clones: 2,            // number of clones  
   randomize: true,      // if true, the number of clones will be +- 50% for each burst  
   spread: .8,           // spread of clones
@@ -20,18 +20,18 @@ for(var i = 0; i < triggers.length; i++) {
 }
 
 function clone(item) {
-  
+
   var position = item.getBoundingClientRect();
   var element = item
   
   var i
   var velocity
   var rate
-  var opacity = config.opacity
-  var clones = config.randomize ? (config.clones * ( Math.random() + .5 ) ) : config.clones
+  var opacity = burstConfig.opacity
+  var clones = burstConfig.randomize ? (burstConfig.clones * ( Math.random() + .5 ) ) : burstConfig.clones
   
-  rate = 100 / config.rate 
-  velocity = 4 / config.velocity * 1000
+  rate = 100 / burstConfig.rate 
+  velocity = 4 / burstConfig.velocity * 1000
   
   var clone = {
     top: position.top, 
@@ -76,11 +76,11 @@ function animate( el, viewport, clone ) {
     var scale
     var angle
     var transformOrigin
-    var rotate = config.rotate
-    var removeDelay = 4 / config.velocity * 1000
+    var rotate = burstConfig.rotate
+    var removeDelay = 4 / burstConfig.velocity * 1000
 
-    spread = Math.floor( Math.random() * (viewport/2*config.spread) )
-    scale = config.scale + Math.random() * config.scaleSpread
+    spread = Math.floor( Math.random() * (viewport/2*burstConfig.spread) )
+    scale = burstConfig.scale + Math.random() * burstConfig.scaleSpread
     
     spread = Math.random() < 0.5 ? spread : spread * -1
     rotate = Math.random() < 0.5 ? rotate : rotate * -1
