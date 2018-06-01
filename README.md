@@ -21,3 +21,4 @@ A simple library that enables a burst animation on any selected element similar 
 ## Basic demo
 https://codepen.io/marchamm/pen/BVyXYX
 
+![alt text](https://raw.githubusercontent.com/marchamm/burst-animation/master/demo/burst.gif "Demo gif")
