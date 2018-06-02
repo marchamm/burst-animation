@@ -54,8 +54,6 @@ function clone(item) {
   var time = burstConfig.time
   var clones = burstConfig.randomize ? (burstConfig.clones * ( Math.random() + .5 ) ) : burstConfig.clones
   clones = parseInt(clones, 10)
-  
-  console.log(zIndex)
 
   var clone = {
     top: position.top, 

@@ -47,13 +47,14 @@ function clone(item) {
 
   var position = item.getBoundingClientRect();
   var element = item
+  var zIndex = parseInt(Math.random() * 100)
   
   var rate = burstConfig.rate
   var opacity = burstConfig.opacity
   var time = burstConfig.time
   var clones = burstConfig.randomize ? (burstConfig.clones * ( Math.random() + .5 ) ) : burstConfig.clones
   clones = parseInt(clones, 10)
-  
+
   var clone = {
     top: position.top, 
     left: position.left,
@@ -77,6 +78,7 @@ function clone(item) {
       el.style.left = clone.left+'px'
       el.style.width = clone.width+'px'
       el.style.opacity = 1
+      el.style.zIndex = zIndex
       el.style.transitionDuration = time+'s'
       el.style.position = 'fixed'
       el.style.transitionTimingFunction= 'cubic-bezier(.1,1,.1,1)'
