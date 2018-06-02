@@ -1,28 +1,43 @@
-var burstConfig = {
-  clones: 2,            // number of clones  
-  randomize: false,      // if true, the number of clones will be +- 50% for each burst  
-  spread: .8,           // spread of clones
+
+var defaultConfig = {
+  clones: 4,            // number of clones  
+  randomClones: true,   // number of clones will differ by 0-50% for each burst
+  spread: 1,            // spread of clones
   rotate: 480,          // rotation of clones starting from 0
   angle: 0,             // direction of burst in degrees, 0 only support at the moment
-  opacity: .8,          // starting opacity of clone
-  rate: .8,              // time between clones
-  scale: .6,            // final clone size starting from 1
-  scaleSpread: .6,      // level of variety in clone sizes
-  velocity: .8,         // speed of clones
+  opacity: 1,           // end opacity of clone
+  rate: 80,             // time between clones
+  scale: 1,             // final clone size starting from 1
+  randomScale: true,    // final clone size will differ by 0-50% for each clone
+  time: 8,              // time of animation for each clone
 }
 
-var triggers = document.getElementsByClassName('burst')
-triggers = Object.keys(triggers).map(key => triggers[key])
+var burstConfig = {
+  clones: 4,            // number of clones  
+  randomClones: true,   // number of clones will differ by 0-50% for each burst
+  spread: 1,            // spread of clones
+  rotate: 480,          // rotation of clones starting from 0
+  angle: 0,             // direction of burst in degrees, 0 only support at the moment
+  opacity: 1,           // end opacity of clone
+  rate: 80,             // time between clones
+  scale: 1,             // final clone size starting from 1
+  randomScale: true,    // final clone size will differ by 0-50% for each clone
+  time: 8,              // time of animation for each clone
+}
+
+var triggers = Object.keys(document.getElementsByClassName('burst')).map(key => document.getElementsByClassName('burst')[key])
 
 triggers.forEach(function(element) {
 
   element.onclick = function() {
-    burstConfig.clones = this.getAttribute("data-burst-clones") ? parseFloat(this.getAttribute("data-burst-clones")) : 2
-    burstConfig.spread = this.getAttribute("data-burst-spread") ? parseFloat(this.getAttribute("data-burst-spread")) : .8
-    burstConfig.rate = this.getAttribute("data-burst-rate") ? parseFloat(this.getAttribute("data-burst-rate")) : .8
-    burstConfig.scale = this.getAttribute("data-burst-scale") ? parseFloat(this.getAttribute("data-burst-scale")) : .6
-    burstConfig.velocity = this.getAttribute("data-burst-velocity") ? parseFloat(this.getAttribute("data-burst-velocity")) : .8
-
+    burstConfig.clones = this.getAttribute("data-burst-clones") ? parseFloat(this.getAttribute("data-burst-clones")) : defaultConfig.clones
+    burstConfig.spread = this.getAttribute("data-burst-spread") ? parseFloat(this.getAttribute("data-burst-spread")) : defaultConfig.spread
+    burstConfig.rate = this.getAttribute("data-burst-rate") ? parseFloat(this.getAttribute("data-burst-rate")) : defaultConfig.rate
+    burstConfig.time = this.getAttribute("data-burst-time") ? parseFloat(this.getAttribute("data-burst-time")) : defaultConfig.time
+    burstConfig.scale = this.getAttribute("data-burst-scale") ? parseFloat(this.getAttribute("data-burst-scale")) : defaultConfig.scale
+    burstConfig.opacity = this.getAttribute("data-burst-opacity") ? parseFloat(this.getAttribute("data-burst-opacity")) : defaultConfig.opacity
+    burstConfig.randomScale = this.getAttribute("data-burst-randomScale") === 'false' ? false : defaultConfig.randomScale
+    burstConfig.randomClones = this.getAttribute("data-burst-randomClones") === 'false' ? false : defaultConfig.randomClones
     clone(this)
   };
 
@@ -33,15 +48,11 @@ function clone(item) {
   var position = item.getBoundingClientRect();
   var element = item
   
-  var i
-  var velocity
-  var rate
+  var rate = burstConfig.rate
   var opacity = burstConfig.opacity
+  var time = burstConfig.time
   var clones = burstConfig.randomize ? (burstConfig.clones * ( Math.random() + .5 ) ) : burstConfig.clones
   clones = parseInt(clones, 10)
-
-  rate = 100 / burstConfig.rate 
-  velocity = 4 / burstConfig.velocity * 1000
   
   var clone = {
     top: position.top, 
@@ -53,7 +64,7 @@ function clone(item) {
   var viewport = window.innerHeight
   var body = document.getElementsByTagName("BODY")[0]
 
-  for (i = 0; i < clones; i++) {
+  for (var i = 0; i < clones; i++) {
     
     setTimeout(function(){
       
@@ -65,8 +76,8 @@ function clone(item) {
       el.style.top = clone.top+'px'
       el.style.left = clone.left+'px'
       el.style.width = clone.width+'px'
-      el.style.opacity = opacity
-      el.style.transitionDuration = velocity+'ms'
+      el.style.opacity = 1
+      el.style.transitionDuration = time+'s'
       el.style.position = 'fixed'
       el.style.transitionTimingFunction= 'cubic-bezier(.1,1,.1,1)'
       el.style.transitionProperty = 'transform, opacity'
@@ -87,10 +98,10 @@ function animate( el, viewport, clone ) {
     var angle
     var transformOrigin
     var rotate = burstConfig.rotate
-    var removeDelay = 4 / burstConfig.velocity * 1000
+    var removeCloneTime = burstConfig.time*1000
 
     spread = Math.floor( Math.random() * (viewport/2*burstConfig.spread) )
-    scale = burstConfig.scale + Math.random() * burstConfig.scaleSpread
+    scale = burstConfig.randomScale ? (Math.random() + .4) * burstConfig.scale : burstConfig.scale
     
     spread = Math.random() < 0.5 ? spread : spread * -1
     rotate = Math.random() < 0.5 ? rotate : rotate * -1
@@ -100,12 +111,12 @@ function animate( el, viewport, clone ) {
 
     el.offsetHeight // hack for transitions to work
     
-    el.style.opacity = 1
+    el.style.opacity = burstConfig.opacity
     el.style.transform = "translate3d("+ spread +"px,"+ angle +"px,0) rotate("+ rotate +"deg) scale("+scale+")" 
     el.transformOrigin = transformOrigin
     
     setTimeout(function(){
       el.outerHTML = ""
-    }, removeDelay)
+    }, removeCloneTime)
 
 }
