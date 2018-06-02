@@ -1,6 +1,6 @@
 var burstConfig = {
   clones: 2,            // number of clones  
-  randomize: true,      // if true, the number of clones will be +- 50% for each burst  
+  randomize: false,      // if true, the number of clones will be +- 50% for each burst  
   spread: .8,           // spread of clones
   rotate: 480,          // rotation of clones starting from 0
   angle: 0,             // direction of burst in degrees, 0 only support at the moment
@@ -11,13 +11,22 @@ var burstConfig = {
   velocity: .8,         // speed of clones
 }
 
-var triggers = document.getElementsByClassName('burst');
-for(var i = 0; i < triggers.length; i++) {
-  var element = triggers[i];   
+var triggers = document.getElementsByClassName('burst')
+triggers = Object.keys(triggers).map(key => triggers[key])
+
+triggers.forEach(function(element) {
+
   element.onclick = function() {
+    burstConfig.clones = this.getAttribute("data-burst-clones") ? parseFloat(this.getAttribute("data-burst-clones")) : 2
+    burstConfig.spread = this.getAttribute("data-burst-spread") ? parseFloat(this.getAttribute("data-burst-spread")) : .8
+    burstConfig.rate = this.getAttribute("data-burst-rate") ? parseFloat(this.getAttribute("data-burst-rate")) : .8
+    burstConfig.scale = this.getAttribute("data-burst-scale") ? parseFloat(this.getAttribute("data-burst-scale")) : .6
+    burstConfig.velocity = this.getAttribute("data-burst-velocity") ? parseFloat(this.getAttribute("data-burst-velocity")) : .8
+
     clone(this)
   };
-}
+
+});
 
 function clone(item) {
 
@@ -29,7 +38,8 @@ function clone(item) {
   var rate
   var opacity = burstConfig.opacity
   var clones = burstConfig.randomize ? (burstConfig.clones * ( Math.random() + .5 ) ) : burstConfig.clones
-  
+  clones = parseInt(clones, 10)
+
   rate = 100 / burstConfig.rate 
   velocity = 4 / burstConfig.velocity * 1000
   
