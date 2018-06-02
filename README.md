@@ -3,22 +3,34 @@ A simple library that enables a burst animation on any selected element similar 
 
 ## Simple installation
 
-1. Include burst.min.js in your project eg.
+1. Include burst.js in your project eg.
 ```
 <body>
   <!-- Your content here -->
-  <script src="https://s3-ap-southeast-2.amazonaws.com/burst-animation/burst.min.js"></script>
+  <script src="js/burst.js"></script>
 </body>
 ```
 
 2. Add or wrap elements you want to animate with class '.burst'
 ```
 <div class="burst">
-  <span class="item">❤️</span>
+  ❤️
 </div>
 ```
 
+3. Customize options with data-attributes
+```
+  <div 
+    class="burst" 
+    data-burst-clones="2" 
+    data-burst-spread=".8" 
+    data-burst-rate=".8" 
+    data-burst-scale=".6" 
+    data-burst-velocity="0.8">
+    🥑
+  </div>
+```
+
+
 ## Basic demo
 https://codepen.io/marchamm/pen/BVyXYX
-
-![alt text](https://raw.githubusercontent.com/marchamm/burst-animation/master/burst.gif "Demo gif")
