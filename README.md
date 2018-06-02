@@ -1,5 +1,5 @@
 # burst-animation
-A simple library that enables a burst animation on any selected element similar to FB and iMessages.
+A simple library that enables a burst animation on any selected element.
 
 ## Simple installation
 
