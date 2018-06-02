@@ -46,5 +46,6 @@ Quickly adjust the behaviour of the burst with custom data attributes to overrid
 | burst-time                   | number         | 8          | Time of animation from start to end for each clone in seconds (s)
 
 
-## Basic demo
-https://codepen.io/marchamm/pen/BVyXYX
+## Basic demo page
+
+https://marchamm.github.io/burst-animation/demo/
