@@ -3,7 +3,7 @@ A simple library that enables a burst animation on any selected element.
 
 ## Simple installation
 
-#### 1. Include burst.js in your project eg.
+#### Include burst.js in your project eg.
 ```
 <body>
   <!-- Your content here -->
@@ -11,26 +11,29 @@ A simple library that enables a burst animation on any selected element.
 </body>
 ```
 
-#### 2. Add or wrap elements you want to animate with class '.burst'
+#### Add or wrap elements you want to animate with class '.burst'
 ```
 <div class="burst">
   ❤️
 </div>
 ```
 
-#### 3. Customize options with data-attributes
+## Options
+To quickly adjust the behaviour of the burst there are custom data attributes. They will override the defaults.
+
+#### Using data-attributes
 ```
   <div 
     class="burst" 
-    data-burst-clones="2" 
-    data-burst-spread=".8" 
-    data-burst-rate=".8" 
-    data-burst-scale=".6" 
-    data-burst-velocity="0.8">
+    data-burst-clones="2"       // number of clones
+    data-burst-spread=".8"      // distance between clones
+    data-burst-rate="80"        // time between clones in ms
+    data-burst-scale=".6"       // final clone size
+    data-burst-velocity="0.8">  // animation speed of clones in seconds
     ❤️
   </div>
 ```
-
+#### 
 
 ## Basic demo
 https://codepen.io/marchamm/pen/BVyXYX
