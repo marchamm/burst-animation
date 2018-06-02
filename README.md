@@ -3,7 +3,7 @@ A simple library that enables a burst animation on any selected element.
 
 ## Simple installation
 
-#### Include burst.js in your project eg.
+#### Include burst.js in your project, example:
 ```
 <body>
   <!-- Your content here -->
@@ -11,7 +11,7 @@ A simple library that enables a burst animation on any selected element.
 </body>
 ```
 
-#### Add or wrap elements you want to animate with class '.burst'
+#### Add the class "burst" to an element or container, example:
 ```
 <div class="burst">
   ❤️
@@ -19,9 +19,9 @@ A simple library that enables a burst animation on any selected element.
 ```
 
 ## Options
-To quickly adjust the behaviour of the burst there are custom data attributes. They will override the defaults.
+Quickly adjust the behaviour of the burst with custom data attributes to override defaults.
 
-#### Using data-attributes
+#### Custom data attributes, example:
 ```
   <div 
     class="burst" 
