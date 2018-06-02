@@ -27,7 +27,7 @@ A simple library that enables a burst animation on any selected element.
     data-burst-rate=".8" 
     data-burst-scale=".6" 
     data-burst-velocity="0.8">
-    🥑
+    ❤️
   </div>
 ```
 
