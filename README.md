@@ -26,10 +26,10 @@ Quickly adjust the behaviour of the burst with custom data attributes to overrid
   <div 
     class="burst" 
     data-burst-clones="2"       // number of clones
-    data-burst-spread=".8"      // distance between clones
+    data-burst-spread="1"      // distance between clones
     data-burst-rate="80"        // time between clones in ms
     data-burst-scale=".6"       // final clone size
-    data-burst-velocity="0.8">  // animation speed of clones in seconds
+    data-burst-velocity="10">   // animation speed of clones in seconds, lower is faster
     ❤️
   </div>
 ```
