@@ -6,25 +6,69 @@
     <link rel="stylesheet" type="text/css" href="styles.css">
   </head>
   <body translate="no">
+    <div class="config">
+      <div class="presets">
+        <div id="default" class="preset active" onclick="updateConfig(this)">Burst</div>
+        <div id="top" class="preset" onclick="updateConfig(this)">Rain</div>
+        <div id="bottom" class="preset" onclick="updateConfig(this)">Fire</div>
+        <div id="custom" class="preset" onclick="updateConfig(this)">Hearts</div>
+      </div>
+    </div>
     <div class="btn-container">
       <div class="btn">
         <div class="burst">
-          <span class="item">❤️</span>
+          <span class="item">🐳</span>
         </div>
-        <div class="btn-label">Default</div>
-      </div>
-      <div class="btn">
-        <div
-          class="burst"
-          data-burst-clones="16"
-          data-burst-spread="1.5"
-          data-burst-rate="80"
-          data-burst-scale="2">
-          <span class="item">🥕</span>
-        </div>
-        <div class="btn-label">Custom</div>
       </div>
     </div>
+    <div id="heart" style="position: absolute; opacity: 0; pointer-events: none;">
+      <span class="item">❤️</span>
+    </div>
+    <script>
+      
+      function updateConfig(e){
+
+        var active = document.querySelector('.active')
+        var preset = e.getAttribute("id")
+        var burst = document.querySelector('.burst')
+
+        e.classList.toggle('active');
+        active.classList.remove('active');
+
+        if (preset === 'top') {
+          burst.setAttribute('data-burst-clones', '32');
+          burst.setAttribute('data-burst-rate', '80');
+          burst.setAttribute('data-burst-scale', '0.8');
+          burst.setAttribute('data-burst-time', '3');
+          burst.setAttribute('data-burst-origin', 'top');
+          burst.removeAttribute('data-burst-element');
+        }
+        if (preset === 'bottom') {
+          burst.setAttribute('data-burst-clones', '32');
+          burst.setAttribute('data-burst-rate', '60');
+          burst.setAttribute('data-burst-scale', '0.8');
+          burst.setAttribute('data-burst-time', '5');
+          burst.setAttribute('data-burst-origin', 'bottom');
+          burst.removeAttribute('data-burst-element');
+        }
+        if (preset === 'custom') {
+          burst.setAttribute('data-burst-clones', '32');
+          burst.setAttribute('data-burst-rate', '60');
+          burst.setAttribute('data-burst-scale', '0.8');
+          burst.setAttribute('data-burst-time', '5');
+          burst.setAttribute('data-burst-origin', 'bottom');
+          burst.setAttribute('data-burst-element', '#heart');
+        }
+        if (preset === 'default') {
+          burst.removeAttribute('data-burst-clones')
+          burst.removeAttribute('data-burst-rate')
+          burst.removeAttribute('data-burst-scale')
+          burst.removeAttribute('data-burst-time')
+          burst.removeAttribute('data-burst-origin')
+          burst.removeAttribute('data-burst-element');
+        }
+      }
+    </script>
     <script src="burst.js"></script>
    </body>
  </html>

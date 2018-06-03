@@ -4,13 +4,48 @@
 body {
   margin: 0;
   padding: 0;
-  background: #4cefba;
+  background: #caf8ff;
   touch-action: manipulation;
   font-family: Arial;
+  color: #3195a5;
+}
+.config {
+  position: fixed;
+  bottom: 10vh;
+  left: 50%;
+  width: 100vw;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  -webkit-transform: translate3d(-50%, 0, 0);
+          transform: translate3d(-50%, 0, 0);
+}
+.info {
+  text-align: center;
+  margin-bottom: 16px;
+  font-size: 10px;
+  color: rgba(0,0,0,0.4);
+}
+.presets {
+  text-align: center;
+}
+.preset {
+  padding: 6px 8px ;
+  text-align: center;
+  display: inline-block;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+  opacity: 0.6;
+  opacity: 0.6;
+  border-radius: 4px;
+}
+.preset.active {
+  opacity: 1;
+  background: #FFF;
 }
 .btn-container {
   position: fixed;
-  bottom: 10vw;
+  bottom: 30vh;
   left: 50%;
   -webkit-transform: translate3d(-50%, 0, 0);
           transform: translate3d(-50%, 0, 0);
@@ -24,7 +59,7 @@ body {
   text-align: center;
   position: relative;
   border-radius: 100px;
-  border: 2px solid rgba(0,0,0,0.2);
+  background: #FFF;
   padding: 24px;
 }
 .btn-label {
@@ -47,8 +82,9 @@ body {
 }
 .item {
   font-size: 32px;
+  width: 32px;
+  height: 32px;
   line-height: 1;
-  width: 100%;
   display: block;
   cursor: pointer;
   transition: -webkit-transform 500ms ease-in-out;
