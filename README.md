@@ -1,6 +1,10 @@
 # burst-animation
 A simple library that enables a burst animation on any selected element.
 
+## Demo
+
+https://marchamm.github.io/burst-animation/demo/
+
 ## Simple installation
 
 #### Include burst.js in your project, example:
@@ -14,7 +18,7 @@ A simple library that enables a burst animation on any selected element.
 #### Add the class "burst" to an element or container, example:
 ```
 <div class="burst">
-  ❤️
+  🐳
 </div>
 ```
 
@@ -28,7 +32,7 @@ Quickly adjust the behaviour of the burst with custom data attributes to overrid
     data-burst-clones="16"
     data-burst-randomClones="false"
     data-burst-time="10">
-    ❤️
+    🐳
   </div>
 ```
 
@@ -44,8 +48,5 @@ Quickly adjust the behaviour of the burst with custom data attributes to overrid
 | burst-randomScale            | boolean        | true       | If true, final clone size will differ by 0-50% for each clone
 | burst-opacity                | number         | 1          | End opacity of clone
 | burst-time                   | number         | 8          | Time of animation from start to end for each clone in seconds (s)
-
-
-## Basic demo page
-
-https://marchamm.github.io/burst-animation/demo/
+| burst-origin                 | string         | 'element'  | Choose animation direction from options: element, top, bottom
+| burst-element                | string         | null       | Use unique ID (eg. #heart) to clone element different from the one clicked

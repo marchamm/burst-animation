@@ -2,10 +2,12 @@
 var defaultConfig = {
   clones: 4,            // number of clones  
   randomClones: true,   // number of clones will differ by 0-50% for each burst
-  spread: 1,            // spread of clones
+  spread: 0.8,            // spread of clones
   rotate: 480,          // rotation of clones starting from 0
   angle: 0,             // direction of burst in degrees, 0 only support at the moment
   opacity: 1,           // end opacity of clone
+  origin: 'element',    // burst starting point
+  element: null,        // element to use as clone
   rate: 80,             // time between clones
   scale: 1,             // final clone size starting from 1
   randomScale: true,    // final clone size will differ by 0-50% for each clone
@@ -15,10 +17,12 @@ var defaultConfig = {
 var burstConfig = {
   clones: 4,            // number of clones  
   randomClones: true,   // number of clones will differ by 0-50% for each burst
-  spread: 1,            // spread of clones
+  spread: 0.8,            // spread of clones
   rotate: 480,          // rotation of clones starting from 0
   angle: 0,             // direction of burst in degrees, 0 only support at the moment
   opacity: 1,           // end opacity of clone
+  origin: 'element',    // burst starting point
+  element: null,        // element to use as clone
   rate: 80,             // time between clones
   scale: 1,             // final clone size starting from 1
   randomScale: true,    // final clone size will differ by 0-50% for each clone
@@ -38,36 +42,63 @@ triggers.forEach(function(element) {
     burstConfig.opacity = this.getAttribute("data-burst-opacity") ? parseFloat(this.getAttribute("data-burst-opacity")) : defaultConfig.opacity
     burstConfig.randomScale = this.getAttribute("data-burst-randomScale") === 'false' ? false : defaultConfig.randomScale
     burstConfig.randomClones = this.getAttribute("data-burst-randomClones") === 'false' ? false : defaultConfig.randomClones
-    clone(this)
+    burstConfig.origin = this.getAttribute("data-burst-origin") ? this.getAttribute("data-burst-origin") : defaultConfig.origin
+    burstConfig.element = this.getAttribute("data-burst-element") ? this.getAttribute("data-burst-element") : defaultConfig.element
+    
+    var item = (burstConfig.element != defaultConfig.element) ? document.querySelector(burstConfig.element) : this
+    clone(item)
+
   };
 
 });
 
 function clone(item) {
 
-  var position = item.getBoundingClientRect();
-  var element = item
-  var zIndex = parseInt(Math.random() * 100)
+  console.log(item.getBoundingClientRect())
   
+  var transitionTimingFunction = 'cubic-bezier(.1,1,.1,1)'
+  var zIndex = parseInt(Math.random() * 100)
   var rate = burstConfig.rate
   var opacity = burstConfig.opacity
   var time = burstConfig.time
-  var clones = burstConfig.randomize ? (burstConfig.clones * ( Math.random() + .5 ) ) : burstConfig.clones
-  clones = parseInt(clones, 10)
+  var clones = burstConfig.randomize ? parseInt((burstConfig.clones * ( Math.random() + .5 ) ), 10) : burstConfig.clones
 
+  var position = item.getBoundingClientRect();
   var clone = {
     top: position.top, 
     left: position.left,
-    width: element.offsetWidth,
-    height: element.offsetHeight
+    width: item.offsetWidth,
+    height: item.offsetHeight
   }
-  
-  var viewport = window.innerHeight
+
+  var viewport = {
+    height: window.innerHeight,
+    width: window.innerWidth
+  }
+
   var body = document.getElementsByTagName("BODY")[0]
 
   for (var i = 0; i < clones; i++) {
-    
+
     setTimeout(function(){
+
+      if (burstConfig.origin === 'top') {
+        clone = {
+          top: -clone.height,
+          left: Math.floor( Math.random() * viewport.width ),
+          width: item.offsetWidth,
+          height: item.offsetHeight
+        }
+        transitionTimingFunction = 'cubic-bezier(.63,.01,.72,.28)'
+      } else if (burstConfig.origin === 'bottom') {
+        clone = {
+          top: viewport.height,
+          left: Math.floor( Math.random() * viewport.width ),
+          width: item.offsetWidth,
+          height: item.offsetHeight
+        }
+        transitionTimingFunction = 'cubic-bezier(.1,1,.1,1)'
+      }
       
       var el = item.cloneNode(true);
       el.className += " clone";
@@ -78,10 +109,11 @@ function clone(item) {
       el.style.left = clone.left+'px'
       el.style.width = clone.width+'px'
       el.style.opacity = 1
+      el.style.display = 'block'
       el.style.zIndex = zIndex
       el.style.transitionDuration = time+'s'
       el.style.position = 'fixed'
-      el.style.transitionTimingFunction= 'cubic-bezier(.1,1,.1,1)'
+      el.style.transitionTimingFunction= transitionTimingFunction
       el.style.transitionProperty = 'transform, opacity'
       el.style.willChange = 'transform, opacity'
       el.style.pointerEvents = 'none'
@@ -102,7 +134,7 @@ function animate( el, viewport, clone ) {
     var rotate = burstConfig.rotate
     var removeCloneTime = burstConfig.time*1000
 
-    spread = Math.floor( Math.random() * (viewport/2*burstConfig.spread) )
+    spread = Math.floor( Math.random() * (viewport.width/2*burstConfig.spread) )
     scale = burstConfig.randomScale ? (Math.random() + .4) * burstConfig.scale : burstConfig.scale
     
     spread = Math.random() < 0.5 ? spread : spread * -1
@@ -110,6 +142,14 @@ function animate( el, viewport, clone ) {
     transformOrigin = Math.random() < 0.5 ? 'top left' : 'top right'
   
     angle = ( clone.top + clone.height * 2 ) * -1
+
+    if (burstConfig.origin === 'top'){
+      angle = viewport.height + clone.height * scale * 2
+      spread = 0
+    } else if (burstConfig.origin === 'bottom') {
+      angle = (viewport.height + clone.height * scale * 2) * -1
+      spread = 0
+    }
 
     el.offsetHeight // hack for transitions to work
     
