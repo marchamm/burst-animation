@@ -139,6 +139,8 @@ function animate( el, viewport, clone ) {
     rotate = Math.random() < 0.5 ? rotate : rotate * -1
     transformOrigin = Math.random() < 0.5 ? 'top left' : 'top right'
   
+    console.log(transformOrigin)
+
     angle = ( clone.top + clone.height * 2 ) * -1
 
     if (burstConfig.origin === 'top'){
@@ -153,7 +155,7 @@ function animate( el, viewport, clone ) {
     
     el.style.opacity = burstConfig.opacity
     el.style.transform = "translate3d("+ spread +"px,"+ angle +"px,0) rotate("+ rotate +"deg) scale("+scale+")" 
-    el.transformOrigin = transformOrigin
+    el.style.transformOrigin = transformOrigin
     
     setTimeout(function(){
       el.outerHTML = ""
