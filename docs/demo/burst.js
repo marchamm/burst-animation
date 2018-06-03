@@ -54,8 +54,6 @@ triggers.forEach(function(element) {
 
 function clone(item) {
 
-  console.log(item.getBoundingClientRect())
-  
   var transitionTimingFunction = 'cubic-bezier(.1,1,.1,1)'
   var zIndex = parseInt(Math.random() * 100)
   var rate = burstConfig.rate
